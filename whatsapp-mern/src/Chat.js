@@ -12,10 +12,8 @@ import db from "./firebase"
 
 import "./Chat.css"
 
-function Chat({ messages }) {
-    console.log("messages", messages)
+function Chat({ messages, setMessages }) {
     const [input, setInput] = useState("")
-    console.log("input", input)
     const [seed, setSeed] = useState("")
     const { roomId } = useParams();
     const [roomName, setRoomName] = useState("")
@@ -24,7 +22,7 @@ function Chat({ messages }) {
 
     useEffect(() => {
         if (roomId) {
-            console.log("roomId", roomId)
+            // console.log("roomId", roomId)
             db.collection('rooms')
                 .doc(roomId)
                 .onSnapshot(snapshot => (
@@ -48,12 +46,14 @@ function Chat({ messages }) {
         e.preventDefault();
 
         console.log("roomName", roomName)
-        await axios.post('/messages/new', {
+        const { data } = await axios.post('/messages/new', {
             message: input,
             name: state[0].user.displayName,
             timestamp: `${new Date().toUTCString()}`,
             roomName
         });
+        console.log(data, messages)
+        setMessages([...messages, data]);
         setInput('');
     }
 

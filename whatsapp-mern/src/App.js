@@ -48,8 +48,6 @@ function App() {
     };
   }, [messages]);
 
-  console.log("messages from App.js", messages);
-
   return (
     <div className="app">
       {!user ? (
@@ -60,7 +58,7 @@ function App() {
               <Switch>
                 <Route path="/rooms/:roomId">
                   <Sidebar />
-                  <Chat messages={messages} />
+                  <Chat messages={messages} setMessages={setMessages} />
                 </Route>
                 <Route path="/">
                   <h1>Home Screen</h1>

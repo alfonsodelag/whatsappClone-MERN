@@ -9,7 +9,6 @@ import axios from "./axios"
 import moment from 'moment'
 import db from "./firebase"
 
-
 import "./Chat.css"
 
 function Chat({ messages, setMessages }) {
@@ -18,23 +17,14 @@ function Chat({ messages, setMessages }) {
     const { roomId } = useParams();
     const [roomName, setRoomName] = useState("")
     const state = useContext(StateContext);
-    console.log("user", state[0].user.displayName);
 
     useEffect(() => {
         if (roomId) {
-            // console.log("roomId", roomId)
             db.collection('rooms')
                 .doc(roomId)
                 .onSnapshot(snapshot => (
                     setRoomName(snapshot.data().name)
                 ))
-
-            // db.collection("rooms")
-            // .doc(roomId)
-            // .collection("messages").orderBy('timestamp', 'asc')
-            // .onSnapshot(snapshot => (
-            //         setMessages(snapshot.docs.map((doc) => doc.data()))
-            //     ))
         }
     }, [roomId])
 

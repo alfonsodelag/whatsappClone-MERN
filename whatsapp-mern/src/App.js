@@ -56,12 +56,9 @@ function App() {
           <div className="app_body">
             <Router>
               <Switch>
-                <Route path="/rooms/:roomId">
+                <Route path={["/rooms/:roomId", "/"]}>
                   <Sidebar />
                   <Chat messages={messages} setMessages={setMessages} />
-                </Route>
-                <Route path="/">
-                  <h1>Home Screen</h1>
                 </Route>
               </Switch>
             </Router>
